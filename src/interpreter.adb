@@ -46,6 +46,14 @@ package body Interpreter is
                         Ada.Text_IO.Put (Character'Val (Integer (Char)));
                     end;
 
+                when ',' =>
+                    declare
+                        Char : Character;
+                    begin
+                        Ada.Text_IO.Get (Char);
+                        Tape (Ptr) := Character'Pos (Char);
+                    end;
+
                 when '[' =>
                     declare
                         Original : Integer := LoopV.Last_Index;
