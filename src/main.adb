@@ -1,6 +1,6 @@
 with Interpreter;
 with Ada.Command_Line;
-
+with Ada.Exceptions;
 with Ada.Text_IO;           use Ada.Text_IO;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
@@ -25,6 +25,12 @@ begin
             Interpreter.Run (To_String (FVal));
 
             Close (FType);
-        end;
+        
+        exception
+            when Error: Interpreter.ExecFailure => 
+                Ada.Text_IO.Put_Line ("[ExecFailure] " & Ada.Exceptions.Exception_Message (Error));
+            when Error: others =>
+                Ada.Text_IO.Put_Line ("[ReadError] " & Ada.Exceptions.Exception_Message (Error));
+            end;
     end loop;
 end Main;
