@@ -23,6 +23,8 @@ procedure Main is begin
             end loop ReadLoop;
 
             Interpreter.Run(To_String(FVal));
+
+            Close(FType);
         end;
     end loop;
 end Main;
