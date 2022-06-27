@@ -61,15 +61,16 @@ package body Interpreter is
                         LoopV.Append (I);
 
                         if Tape (Ptr) = 0 then
+                            I := I + 1;
                             SkipLoop :
                             while I <= code'Length loop
-                                I := I + 1;
                                 if code (I) = '[' then
                                     LoopV.Append (I);
                                 elsif code (I) = ']' then
                                     LoopV.Delete_Last;
                                 end if;
 
+                                I := I + 1;
                                 exit SkipLoop when LoopV.Last_Index = Original;
                             end loop SkipLoop;
                         end if;
@@ -93,5 +94,10 @@ package body Interpreter is
 
             I := I + 1;
         end loop ExecutionLoop;
+
+        if LoopV.Last_Index /= LoopVec.No_Index then
+            raise ExecFailure
+               with "[Error] Unclosed Loop (" & LoopV.Last_Element'Img & " )";
+        end if;
     end Run;
 end Interpreter;
