@@ -4,7 +4,7 @@ package Interpreter is
     package TapeVec is new Ada.Containers.Vectors (Natural, Natural);
     package LoopVec is new Ada.Containers.Vectors (Natural, Natural);
 
-    procedure Run (code : String);
+    procedure Run (code : String; debug : Boolean);
 
     ExecFailure : exception;
 end Interpreter;
