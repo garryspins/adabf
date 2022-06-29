@@ -24,7 +24,7 @@ package body Interpreter is
 
                         for Val in 0 .. Tape.Last_Index loop
                             declare
-                                TVal : Natural;
+                                TVal : TapeNode;
                             begin
                                 TVal := Tape (Val);
 
@@ -51,22 +51,14 @@ package body Interpreter is
                     end if;
 
                 when '+' =>
-                    if Tape (Ptr) = 255 then
-                        Tape (Ptr) := 0;
-                    else
-                        
-                    end if;
+                    Tape (Ptr) := Tape (Ptr) + 1;
 
                 when '-' =>
-                    if Tape (Ptr) /= 0 then
-                        Tape (Ptr) := Tape (Ptr) - 1;
-                    else
-                        Tape (Ptr) := 255;
-                    end if;
+                    Tape (Ptr) := Tape (Ptr) - 1;
 
                 when '.' =>
                     declare
-                        Char : Natural := Tape (Ptr);
+                        Char : TapeNode := Tape (Ptr);
                     begin
                         Ada.Text_IO.Put (Character'Val (Integer (Char)));
                     end;
